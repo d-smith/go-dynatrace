@@ -30,8 +30,21 @@ DYNATRACE_INITIALIZE(&argCount,&argv);
 struct DTContext enter_dt()
 {
   //TODO - figure out how to specify method name, not pick it up via __FUNCTION__
-  DYNATRACE_API("Go Lang");
-  DYNATRACE_START_PUREPATH();
+  //DYNATRACE_API("Go Lang");
+  static const char *__dynatrace_api__ = "Go Lang";
+
+  //DYNATRACE_START_PUREPATH();
+  static int __dynatrace_method_id__ = 0;
+  int __dynatrace_serial_no__;
+  if (!__dynatrace_method_id__) {
+		__dynatrace_method_id__ = dynatrace_get_method_id(__DYNATRACE_CURRENT_FUNCTION__, __DYNATRACE_CURRENT_SOURCE_FILE__, __DYNATRACE_CURRENT_SOURCE_LINENO__, __dynatrace_api__, 0);
+	}
+	__dynatrace_serial_no__ = dynatrace_get_serial_no(__dynatrace_method_id__, 1);
+  __dynatrace_serial_no__ = dynatrace_enter(__dynatrace_method_id__, __dynatrace_serial_no__);
+
+
+
+
   struct DTContext ctx = {__dynatrace_method_id__, __dynatrace_serial_no__};
   return ctx;
 }
@@ -40,7 +53,11 @@ void exit_dt(struct DTContext ctx)
 {
   int __dynatrace_method_id__ = ctx.methodId;
   int __dynatrace_serial_no__ = ctx.serialNo;
-  DYNATRACE_EXIT();
+
+
+  //DYNATRACE_EXIT();
+
+  dynatrace_exit(__dynatrace_method_id__, __dynatrace_serial_no__);
 }
 
 
