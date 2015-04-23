@@ -29,21 +29,20 @@ DYNATRACE_INITIALIZE(&argCount,&argv);
 
 }
 
-struct DTContext enter_dt(char *methodName)
+int getDynatraceMethodId(char *methodName) {
+  return dynatrace_get_method_id(methodName, "XAVI II", 666, "Gopher3", 0);
+}
+
+struct DTContext enter_dt(int methodId)
 {
   //DYNATRACE_API("Gopher");
-  static const char *__dynatrace_api__ = "Xavi the Wonder Pony";
 
   //DYNATRACE_START_PUREPATH();
-  static int __dynatrace_method_id__ = 0;
   int __dynatrace_serial_no__;
-  //if (!__dynatrace_method_id__) {
-		__dynatrace_method_id__ = dynatrace_get_method_id(methodName, "XAVI", 666, __dynatrace_api__, 0);
-	//}
-	__dynatrace_serial_no__ = dynatrace_get_serial_no(__dynatrace_method_id__, 1);
-  __dynatrace_serial_no__ = dynatrace_enter(__dynatrace_method_id__, __dynatrace_serial_no__);
+	__dynatrace_serial_no__ = dynatrace_get_serial_no(methodId, 1);
+  __dynatrace_serial_no__ = dynatrace_enter(methodId, __dynatrace_serial_no__);
 
-  struct DTContext ctx = {__dynatrace_method_id__, __dynatrace_serial_no__};
+  struct DTContext ctx = {methodId, __dynatrace_serial_no__};
   return ctx;
 }
 
@@ -58,24 +57,29 @@ void exit_dt(struct DTContext ctx)
 }
 
 
-
-
-
-
 */
 import "C"
 import "unsafe"
 
+var handleCallId C.int
+var childCallId C.int
 
 func init() {
   println("init here")
   C.init_dt()
+
+  handleCall := C.CString("handleCall")
+  defer C.free(unsafe.Pointer(handleCall))
+  handleCallId = C.getDynatraceMethodId(handleCall)
+
+  childCall := C.CString("childCall")
+  defer C.free(unsafe.Pointer(childCall))
+  childCallId = C.getDynatraceMethodId(childCall)
+
 }
 
-func clientCall(w http.ResponseWriter) {
-  name := C.CString("clientCall")
-  defer C.free(unsafe.Pointer(name))
-  ctx := C.enter_dt(name)
+func childCall(w http.ResponseWriter) {
+  ctx := C.enter_dt(childCallId)
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
 
 
@@ -88,16 +92,15 @@ func clientCall(w http.ResponseWriter) {
 
 
 func handleCall(w http.ResponseWriter, r *http.Request) {
-  name := C.CString("handleCall")
-  defer C.free(unsafe.Pointer(name))
-  ctx := C.enter_dt(name)
+
+  ctx := C.enter_dt(handleCallId)
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
 
   delayBase := 1 + rand.Intn(5)
   time.Sleep(time.Duration(delayBase*100) * time.Millisecond)
 	w.Write([]byte("Here's some content, dog\n"))
 
-  clientCall(w);
+  childCall(w);
 
   C.exit_dt(ctx)
 
