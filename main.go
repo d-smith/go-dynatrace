@@ -13,26 +13,38 @@ import (
 #include <stdlib.h>
 #include <dynatrace_adk.h>
 
+// Structure for passing methodId and serialNo context back to
+// the dynatrace exit function
 struct DTContext {
   int methodId;
   int serialNo;
 };
 
+//Initialize dynatrace
 static void init_dt()
 {
-//TODO - figure out how to use a golang slice in C land
+  //TODO - look at the initialize macro and determine the
+  //correct set up. Might be able to handle everything via environment
+  //variables.
 
-int argCount = 2;
-char *strs[2] = {"dummy","--dt_debugadk=true"};
-char **argv = &strs;
-DYNATRACE_INITIALIZE(&argCount,&argv);
+  int argCount = 2;
+  char *strs[2] = {"dummy","--dt_debugadk=true"};
+  char **argv = &strs;
+  DYNATRACE_INITIALIZE(&argCount,&argv);
 
 }
 
+//TODO - install a shutdown hook to cleanly disconnect from dynatrace
+
+// Call this in go init method to get the method id to use for calls.
+// This keeps us  from calling the dynatrace_get_method redundantly,
+// which the macro from in the ADK avoids and reduces the amount
+// of string allocation significantly.
 int getDynatraceMethodId(char *methodName) {
   return dynatrace_get_method_id(methodName, "XAVI II", 666, "Gopher3", 0);
 }
 
+// Start a pure path contribution
 struct DTContext enter_dt(int methodId)
 {
   //DYNATRACE_API("Gopher");
@@ -46,6 +58,7 @@ struct DTContext enter_dt(int methodId)
   return ctx;
 }
 
+// End the pure path contribution
 void exit_dt(struct DTContext ctx)
 {
   int __dynatrace_method_id__ = ctx.methodId;
@@ -61,9 +74,11 @@ void exit_dt(struct DTContext ctx)
 import "C"
 import "unsafe"
 
+// Variable used to hold dynatrace method ids for instrumented methods
 var handleCallId C.int
 var childCallId C.int
 
+//Initialize the dynatrace method ids
 func init() {
   println("init here")
   C.init_dt()
@@ -78,6 +93,7 @@ func init() {
 
 }
 
+//Sample child method called from handleCall - shown as descendant in pure path
 func childCall(w http.ResponseWriter) {
   ctx := C.enter_dt(childCallId)
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
@@ -90,7 +106,7 @@ func childCall(w http.ResponseWriter) {
   C.exit_dt(ctx)
 }
 
-
+//Top level pure path call
 func handleCall(w http.ResponseWriter, r *http.Request) {
 
   ctx := C.enter_dt(handleCallId)
@@ -106,6 +122,7 @@ func handleCall(w http.ResponseWriter, r *http.Request) {
 
 }
 
+//Serve up some http goodness
 func main() {
   handleCallHandler := http.HandlerFunc(handleCall)
   http.ListenAndServe(":8080", handleCallHandler)
