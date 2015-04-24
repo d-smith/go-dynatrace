@@ -4,6 +4,7 @@ import (
   "fmt"
   "math/rand"
   "net/http"
+  "sync"
   "time"
 )
 
@@ -74,9 +75,14 @@ void exit_dt(struct DTContext ctx)
 import "C"
 import "unsafe"
 
-// Variable used to hold dynatrace method ids for instrumented methods
-var handleCallId C.int
-var childCallId C.int
+// Variables used to hold dynatrace method ids for instrumented methods
+var (
+  handleCallId C.int
+  childCallId C.int
+)
+
+// Mutex for synchronizing Dynatrace ADK calls
+var mutex sync.Mutex
 
 //Initialize the dynatrace method ids
 func init() {
@@ -95,7 +101,9 @@ func init() {
 
 //Sample child method called from handleCall - shown as descendant in pure path
 func childCall(w http.ResponseWriter) {
+  mutex.Lock()
   ctx := C.enter_dt(childCallId)
+  mutex.Unlock()
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
 
 
@@ -103,13 +111,17 @@ func childCall(w http.ResponseWriter) {
   time.Sleep(time.Duration(delayBase*300) * time.Millisecond)
 	w.Write([]byte("Here's some content, dog\n"))
 
+  mutex.Lock()
   C.exit_dt(ctx)
+  mutex.Unlock()
 }
 
 //Top level pure path call
 func handleCall(w http.ResponseWriter, r *http.Request) {
 
+  mutex.Lock()
   ctx := C.enter_dt(handleCallId)
+  mutex.Unlock()
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
 
   delayBase := 1 + rand.Intn(5)
@@ -118,7 +130,9 @@ func handleCall(w http.ResponseWriter, r *http.Request) {
 
   childCall(w);
 
+  mutex.Lock()
   C.exit_dt(ctx)
+  mutex.Unlock()
 
 }
 
