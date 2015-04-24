@@ -4,6 +4,7 @@ import (
   "fmt"
   "math/rand"
   "net/http"
+  "sync"
   "time"
 )
 
@@ -36,19 +37,22 @@ static void init_dt()
 
 //TODO - install a shutdown hook to cleanly disconnect from dynatrace
 
+static void shutdown_dt() {
+  DYNATRACE_UNINITIALIZE();
+}
 
-// Start a pure path contribution
-struct DTContext enter_dt(char *methodName)
+struct DTContext api_call()
 {
-  //DYNATRACE_API("Gopher");
+  DYNATRACE_API("Gopher");
+  DYNATRACE_START_PUREPATH();
+  struct DTContext ctx = {__dynatrace_method_id__, __dynatrace_serial_no__};
+  return ctx;
+}
 
-  //DYNATRACE_START_PUREPATH();
-  int __dynatrace_serial_no__;
-  int methodId = dynatrace_get_method_id(methodName, "XAVI II", 666, "Gopher3", 0);
-	__dynatrace_serial_no__ = dynatrace_get_serial_no(methodId, 1);
-  __dynatrace_serial_no__ = dynatrace_enter(methodId, __dynatrace_serial_no__);
-
-  struct DTContext ctx = {methodId, __dynatrace_serial_no__};
+struct DTContext svc_call()
+{
+  DYNATRACE_ENTER();
+  struct DTContext ctx = {__dynatrace_method_id__, __dynatrace_serial_no__};
   return ctx;
 }
 
@@ -57,18 +61,17 @@ void exit_dt(struct DTContext ctx)
 {
   int __dynatrace_method_id__ = ctx.methodId;
   int __dynatrace_serial_no__ = ctx.serialNo;
-
-  //DYNATRACE_EXIT();
-
-  dynatrace_exit(__dynatrace_method_id__, __dynatrace_serial_no__);
+  DYNATRACE_EXIT();
 }
+
+
 
 
 */
 import "C"
-import "unsafe"
 
-
+// Use a mutex to sync access to Dynatrace
+var mutex sync.Mutex
 
 //Initialize the dynatrace method ids
 func init() {
@@ -78,9 +81,10 @@ func init() {
 
 //Sample child method called from handleCall - shown as descendant in pure path
 func childCall(w http.ResponseWriter) {
-  fnName := C.CString("childCall")
-  defer C.free(unsafe.Pointer(fnName))
-  ctx := C.enter_dt(fnName)
+
+  mutex.Lock()
+  ctx := C.svc_call()
+  mutex.Unlock()
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
 
 
@@ -88,15 +92,18 @@ func childCall(w http.ResponseWriter) {
   time.Sleep(time.Duration(delayBase*300) * time.Millisecond)
 	w.Write([]byte("Here's some content, dog\n"))
 
+  mutex.Lock()
   C.exit_dt(ctx)
+  mutex.Unlock()
 }
 
 //Top level pure path call
 func handleCall(w http.ResponseWriter, r *http.Request) {
 
-  fnName := C.CString("handleCall")
-  defer C.free(unsafe.Pointer(fnName))
-  ctx := C.enter_dt(fnName)
+
+  mutex.Lock()
+  ctx := C.api_call()
+  mutex.Unlock()
   fmt.Printf("method id: %v sequence: %v\n", ctx.methodId, ctx.serialNo)
 
   delayBase := 1 + rand.Intn(5)
@@ -105,12 +112,19 @@ func handleCall(w http.ResponseWriter, r *http.Request) {
 
   childCall(w);
 
+  mutex.Lock()
   C.exit_dt(ctx)
+  mutex.Unlock()
 
 }
 
 //Serve up some http goodness
-func main() {
+func serveHttp() {
   handleCallHandler := http.HandlerFunc(handleCall)
   http.ListenAndServe(":8080", handleCallHandler)
+}
+
+
+func main() {
+  serveHttp()
 }
