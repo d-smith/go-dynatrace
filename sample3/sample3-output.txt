@@ -1,0 +1,188 @@
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/gostuff/src/github.com/d-smith/sample3$ ./sample3 1
+1
+2015-04-29 23:01:32 [7fb269dcb740] debug   [native] Initializing dynaTrace ADK
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Loading collector peer list from /home/vagrant/agent/dynatrace-6.1.0/agent/conf/collectorlist.XAVI_Monitoring
+2015-04-29 23:01:32 [69dcc8f2] info    [native] 0 entries loaded
+2015-04-29 23:01:32 [69dcc8f2] info    [native] dynaTrace Bootstrap Agent 6.1.0.7880
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Using /home/vagrant/agent/dynatrace-6.1.0 as Agent storage
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Log file at /home/vagrant/agent/dynatrace-6.1.0/log/dt_XAVI_Monitoring_bootstrap_9466.0.log
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Trying to connect to Server/Collector for up to 20 seconds
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Connected to Server/Collector localhost:9998
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Server/Collector requests us to use Agent 6.1.0.7888 with a hash of b54be3dcf4da6da29ed39ead0b263627
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Agent already available locally
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Loading Agent /home/vagrant/agent/dynatrace-6.1.0/agent/downloads/6.1.0.7888/native/linux-x86-64/libdtagentcore.so
+2015-04-29 23:01:32 [69dcc8f2] info    [native] clock_getres could be resolved
+2015-04-29 23:01:32 [69dcc8f2] info    [native] clock_gettime could be resolved
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Loading collector peer list from /home/vagrant/agent/dynatrace-6.1.0/agent/conf/collectorlist.XAVI_Monitoring
+2015-04-29 23:01:32 [69dcc8f2] info    [native] 0 entries loaded
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Using CLOCK_MONOTONIC POSIX timer
+2015-04-29 23:01:32 [69dcc8f2] info    [native] High-resolution POSIX timer detected.
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Using POSIX cpu time provider
+2015-04-29 23:01:32 [69dcc8f2] info    [native] -----------------------------------------------------------------------------------------------
+2015-04-29 23:01:32 [69dcc8f2] info    [native] dynaTrace Agent for ADK Copyright (C) 2004-2014 Compuware Corporation, http://www.compuware.com
+2015-04-29 23:01:32 [69dcc8f2] info    [native] -----------------------------------------------------------------------------------------------
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Version ..................... 6.1.0.7888, build date Dec 10 2014 23:39:41, svn rev. UNKNOWN
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Command line is ./sample3 1 
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Build platform .............. Linux x86 64-bit
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Platform .................... Linux 3.13.0-39-generic x86_64
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Bootstrap version ........... 6.1.0.7880
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Log level console ........... info
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Log level file .............. info
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Log file .................... /home/vagrant/agent/dynatrace-6.1.0/log/dt_XAVI_Monitoring_9466.0.log
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Agent host .................. vagrant-ubuntu-trusty-64
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Agent library ............... /home/vagrant/agent/dynatrace-6.1.0/agent/downloads/6.1.0.7888/native/linux-x86-64/libdtagentcore.so
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Agent name .................. XAVI_Monitoring
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Server/Collector ............ localhost:9998
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Reading LoadBalancing configuration from localhost:9998
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Storing collector peer list (0 entries) to /home/vagrant/agent/dynatrace-6.1.0/agent/conf/collectorlist.XAVI_Monitoring
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Trying to connect to Server/Collector for up to 19 seconds
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Instrumentation channel connected successfully
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Connected to Server/Collector localhost:9998
+2015-04-29 23:01:32 [61f9b8b2] info    [native] Control channel connected successfully
+2015-04-29 23:01:32 [61f9b8b2] info    [native] ADK sensor capturing ........ active
+2015-04-29 23:01:32 [61f9b8b2] info    [native] Agent ID .................... c5662329
+2015-04-29 23:01:32 [61f9b8b2] info    [native] Process ID .................. 9466
+2015-04-29 23:01:32 [61f9b8b2] info    [native] Recovery .................... enabled
+2015-04-29 23:01:32 [61f9b8b2] info    [native] Hypervisor .................. VirtualBox
+2015-04-29 23:01:32 [69dcc8f2] info    [native] Eventsender channel connected successfully
+2015-04-29 23:01:32 [7fb269dcb740] debug   [native] Returning instance of SDKAgent
+A called ctx is 1 - 1
+	B called ctx is 2 - 2
+	C called ctx is 2 - -1
+2015-04-29 23:01:35 [61f9b8b2] info    [native] License = license ok; 
+A called ctx is 1 - 3
+	B called ctx is 2 - 4
+	C called ctx is 2 - 5
+A called ctx is 1 - 6
+	B called ctx is 2 - 7
+	C called ctx is 2 - 8
+A called ctx is 1 - 9
+	B called ctx is 2 - 10
+	C called ctx is 2 - 11
+A called ctx is 1 - 12
+	B called ctx is 2 - 13
+	C called ctx is 2 - 14
+A called ctx is 1 - 15
+	B called ctx is 2 - 16
+	C called ctx is 2 - 17
+A called ctx is 1 - 18
+	B called ctx is 2 - 19
+	C called ctx is 2 - 20
+^CReceived interrupt - shutting down
+A called ctx is 1 - 21
+	B called ctx is 2 - 22
+	C called ctx is 2 - 23
+2015-04-29 23:01:47 [7fb25a7fc700] debug   [native] Uninitializing dynaTrace ADK
+2015-04-29 23:01:47 [5a7fb8b2] info    [native] Shutting down Controller
+2015-04-29 23:01:47 [5a7fb8b2] info    [native] Shutting down EventSender
+2015-04-29 23:01:47 [5a7fb8b2] info    [native] Shutting down Instrumentor
+2015-04-29 23:01:47 [5a7fb8b2] info    [native] Shutdown successful
+2015-04-29 23:01:47 [7fb25a7fc700] debug   [native] Uninitialization of dynaTrace ADK done
+shutdown complete
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/gostuff/src/github.com/d-smith/sample3$ ./sample3 2
+2
+2015-04-29 23:02:00 [7fbcb606d740] debug   [native] Initializing dynaTrace ADK
+2015-04-29 23:02:00 [b606a8fc] info    [native] Loading collector peer list from /home/vagrant/agent/dynatrace-6.1.0/agent/conf/collectorlist.XAVI_Monitoring
+2015-04-29 23:02:00 [b606a8fc] info    [native] 0 entries loaded
+2015-04-29 23:02:00 [b606a8fc] info    [native] dynaTrace Bootstrap Agent 6.1.0.7880
+2015-04-29 23:02:00 [b606a8fc] info    [native] Using /home/vagrant/agent/dynatrace-6.1.0 as Agent storage
+2015-04-29 23:02:00 [b606a8fc] info    [native] Log file at /home/vagrant/agent/dynatrace-6.1.0/log/dt_XAVI_Monitoring_bootstrap_9487.0.log
+2015-04-29 23:02:00 [b606a8fc] info    [native] Trying to connect to Server/Collector for up to 20 seconds
+2015-04-29 23:02:00 [b606a8fc] info    [native] Connected to Server/Collector localhost:9998
+2015-04-29 23:02:00 [b606a8fc] info    [native] Server/Collector requests us to use Agent 6.1.0.7888 with a hash of b54be3dcf4da6da29ed39ead0b263627
+2015-04-29 23:02:00 [b606a8fc] info    [native] Agent already available locally
+2015-04-29 23:02:00 [b606a8fc] info    [native] Loading Agent /home/vagrant/agent/dynatrace-6.1.0/agent/downloads/6.1.0.7888/native/linux-x86-64/libdtagentcore.so
+2015-04-29 23:02:00 [b606a8fc] info    [native] clock_getres could be resolved
+2015-04-29 23:02:00 [b606a8fc] info    [native] clock_gettime could be resolved
+2015-04-29 23:02:00 [b606a8fc] info    [native] Loading collector peer list from /home/vagrant/agent/dynatrace-6.1.0/agent/conf/collectorlist.XAVI_Monitoring
+2015-04-29 23:02:00 [b606a8fc] info    [native] 0 entries loaded
+2015-04-29 23:02:00 [b606a8fc] info    [native] Using CLOCK_MONOTONIC POSIX timer
+2015-04-29 23:02:01 [b606a8fc] info    [native] High-resolution POSIX timer detected.
+2015-04-29 23:02:01 [b606a8fc] info    [native] Using POSIX cpu time provider
+2015-04-29 23:02:01 [b606a8fc] info    [native] -----------------------------------------------------------------------------------------------
+2015-04-29 23:02:01 [b606a8fc] info    [native] dynaTrace Agent for ADK Copyright (C) 2004-2014 Compuware Corporation, http://www.compuware.com
+2015-04-29 23:02:01 [b606a8fc] info    [native] -----------------------------------------------------------------------------------------------
+2015-04-29 23:02:01 [b606a8fc] info    [native] Version ..................... 6.1.0.7888, build date Dec 10 2014 23:39:41, svn rev. UNKNOWN
+2015-04-29 23:02:01 [b606a8fc] info    [native] Command line is ./sample3 2 
+2015-04-29 23:02:01 [b606a8fc] info    [native] Build platform .............. Linux x86 64-bit
+2015-04-29 23:02:01 [b606a8fc] info    [native] Platform .................... Linux 3.13.0-39-generic x86_64
+2015-04-29 23:02:01 [b606a8fc] info    [native] Bootstrap version ........... 6.1.0.7880
+2015-04-29 23:02:01 [b606a8fc] info    [native] Log level console ........... info
+2015-04-29 23:02:01 [b606a8fc] info    [native] Log level file .............. info
+2015-04-29 23:02:01 [b606a8fc] info    [native] Log file .................... /home/vagrant/agent/dynatrace-6.1.0/log/dt_XAVI_Monitoring_9487.0.log
+2015-04-29 23:02:01 [b606a8fc] info    [native] Agent host .................. vagrant-ubuntu-trusty-64
+2015-04-29 23:02:01 [b606a8fc] info    [native] Agent library ............... /home/vagrant/agent/dynatrace-6.1.0/agent/downloads/6.1.0.7888/native/linux-x86-64/libdtagentcore.so
+2015-04-29 23:02:01 [b606a8fc] info    [native] Agent name .................. XAVI_Monitoring
+2015-04-29 23:02:01 [b606a8fc] info    [native] Server/Collector ............ localhost:9998
+2015-04-29 23:02:01 [b606a8fc] info    [native] Reading LoadBalancing configuration from localhost:9998
+2015-04-29 23:02:01 [b606a8fc] info    [native] Storing collector peer list (0 entries) to /home/vagrant/agent/dynatrace-6.1.0/agent/conf/collectorlist.XAVI_Monitoring
+2015-04-29 23:02:01 [b606a8fc] info    [native] Trying to connect to Server/Collector for up to 19 seconds
+2015-04-29 23:02:01 [b606a8fc] info    [native] Instrumentation channel connected successfully
+2015-04-29 23:02:01 [b606a8fc] info    [native] Connected to Server/Collector localhost:9998
+2015-04-29 23:02:01 [ae14f8bc] info    [native] Control channel connected successfully
+2015-04-29 23:02:01 [ae14f8bc] info    [native] ADK sensor capturing ........ active
+2015-04-29 23:02:01 [ae14f8bc] info    [native] Agent ID .................... 452d3667
+2015-04-29 23:02:01 [ae14f8bc] info    [native] Process ID .................. 9487
+2015-04-29 23:02:01 [ae14f8bc] info    [native] Recovery .................... enabled
+2015-04-29 23:02:01 [ae14f8bc] info    [native] Hypervisor .................. VirtualBox
+2015-04-29 23:02:01 [b606a8fc] info    [native] Eventsender channel connected successfully
+2015-04-29 23:02:01 [7fbcb606d740] debug   [native] Returning instance of SDKAgent
+A called ctx is 1 - 2
+	B called ctx is 2 - 3
+A called ctx is 1 - 1
+	B called ctx is 2 - 4
+	C called ctx is 2 - 5
+	C called ctx is 2 - 6
+A called ctx is 1 - 7
+	B called ctx is 2 - 8
+A called ctx is 1 - 9
+	B called ctx is 2 - 10
+	C called ctx is 2 - 11
+	C called ctx is 2 - 12
+2015-04-29 23:02:05 [ae14f8bc] info    [native] License = license ok; 
+A called ctx is 1 - 13
+	B called ctx is 2 - 14
+A called ctx is 1 - 15
+	B called ctx is 2 - 16
+	C called ctx is 2 - 17
+	C called ctx is 2 - 18
+A called ctx is 1 - 19
+	B called ctx is 2 - 20
+A called ctx is 1 - 21
+	B called ctx is 2 - 22
+	C called ctx is 2 - 23
+	C called ctx is 2 - 24
+A called ctx is 1 - 25
+	B called ctx is 2 - 26
+A called ctx is 1 - 27
+	B called ctx is 2 - 28
+	C called ctx is 2 - 29
+	C called ctx is 2 - 30
+A called ctx is 1 - 31
+A called ctx is 1 - 32
+	B called ctx is 2 - 34
+	B called ctx is 2 - 33
+	C called ctx is 2 - 35
+	C called ctx is 2 - 36
+A called ctx is 1 - 37
+A called ctx is 1 - 38
+	B called ctx is 2 - 39
+	B called ctx is 2 - 40
+	C called ctx is 2 - 41
+	C called ctx is 2 - 42
+A called ctx is 1 - 43
+	B called ctx is 2 - 44
+A called ctx is 1 - 45
+	B called ctx is 2 - 46
+^CReceived interrupt - shutting down
+	C called ctx is 2 - 47
+2015-04-29 23:02:15 [7fbcb606d740] debug   [native] Uninitializing dynaTrace ADK
+2015-04-29 23:02:15 [b606a8fc] info    [native] Shutting down Controller
+	C called ctx is 2 - 48
+shutdown complete
+2015-04-29 23:02:15 [b606a8fc] info    [native] Shutting down EventSender
+2015-04-29 23:02:15 [b606a8fc] info    [native] Shutting down Instrumentor
+2015-04-29 23:02:15 [b606a8fc] info    [native] Shutdown successful
+2015-04-29 23:02:15 [7fbcb606d740] debug   [native] Uninitialization of dynaTrace ADK done
+shutdown complete
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/gostuff/src/github.com/d-smith/sample3$ 
